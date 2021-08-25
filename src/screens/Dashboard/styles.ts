@@ -9,7 +9,7 @@ import { FlatList } from "react-native";
 import { TransactionCardData } from "../../components/TransactionCard";
 
 export const Container = styled.View`
-  display: flex;
+  flex: 1;
   background-color: ${({ theme }) => theme.colors.background};
 `;
 

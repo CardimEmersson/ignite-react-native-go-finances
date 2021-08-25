@@ -11,20 +11,20 @@ export const Container = styled.View`
   border-radius: 5px;
 
   padding: 17px 24px;
-  margin-bottom: ${RFValue(16)}px;
+  margin-bottom: 16px;
 `;
 
 export const Title = styled.Text`
-  font-size: ${RFValue(14)}px;
   font-family: ${({ theme }) => theme.fonts.regular};
+  font-size: ${RFValue(14)}px;
 `;
 
 export const Amount = styled.Text<TransactionProps>`
-  font-size: ${RFValue(20)}px;
-  margin-top: 2px;
   font-family: ${({ theme }) => theme.fonts.regular};
+  font-size: ${RFValue(20)}px;
   color: ${({ theme, type }) =>
     type === "positive" ? theme.colors.success : theme.colors.attention};
+  margin-top: 2px;
 `;
 
 export const Footer = styled.View`
