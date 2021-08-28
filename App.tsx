@@ -1,9 +1,16 @@
+import "react-native-gesture-handler";
+import "intl";
+import "intl/locale-data/jsonp/pt-BR";
+
 import React from "react";
+import { StatusBar } from "react-native";
 import { ThemeProvider } from "styled-components";
 import AppLoading from "expo-app-loading";
 import { LogBox } from "react-native";
-import { Dashboard } from "./src/screens/Dashboard";
-import { Register } from "./src/screens/Register";
+
+import { NavigationContainer } from "@react-navigation/native";
+import { AppRoutes } from "./src/routes/app.routes";
+
 import theme from "./src/global/styles/theme";
 
 import {
@@ -12,7 +19,6 @@ import {
   Poppins_500Medium,
   Poppins_700Bold,
 } from "@expo-google-fonts/poppins";
-import { CategorySelect } from "./src/screens/CategorySelect";
 
 export default function App() {
   LogBox.ignoreLogs(["Remote debugger"]);
@@ -29,9 +35,10 @@ export default function App() {
 
   return (
     <ThemeProvider theme={theme}>
-      {/* <Dashboard /> */}
-      <Register />
-      {/* <CategorySelect /> */}
+      <NavigationContainer>
+        <StatusBar barStyle="light-content" />
+        <AppRoutes />
+      </NavigationContainer>
     </ThemeProvider>
   );
 }
