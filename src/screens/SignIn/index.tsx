@@ -1,11 +1,11 @@
-import React from "react";
-import { Alert } from "react-native";
+import React, { useState } from "react";
+import { ActivityIndicator, Alert, Platform } from "react-native";
 import { RFValue } from "react-native-responsive-fontsize";
 import AppleSvg from "../../assets/apple.svg";
 import GoogleSvg from "../../assets/google.svg";
 import LogoSvg from "../../assets/logo.svg";
 import { SignInSocialButton } from "../../components/SignInSocialButton";
-
+import { useTheme } from "styled-components";
 import { useAuth } from "../../hooks/auth";
 
 import {
@@ -19,22 +19,29 @@ import {
 } from "./styles";
 
 export function SignIn() {
+  const [isLoadding, setIsLoadding] = useState(false);
   const { signInWithGoogle, signInWithApple } = useAuth();
+  const theme = useTheme();
 
   async function handleSignInWithGoogle() {
     try {
-      await signInWithGoogle();
+      setIsLoadding(true);
+      return await signInWithGoogle();
     } catch (error) {
       console.log(error);
       Alert.alert("Não foi possível conectar a conta google");
+      setIsLoadding(false);
     }
   }
+
   async function handleSignInWithApple() {
     try {
-      await signInWithApple();
+      setIsLoadding(true);
+      return await signInWithApple();
     } catch (error) {
       console.log(error);
       Alert.alert("Não foi possível conectar a conta Apple");
+      setIsLoadding(false);
     }
   }
 
@@ -58,12 +65,20 @@ export function SignIn() {
             svg={GoogleSvg}
             onPress={handleSignInWithGoogle}
           />
-          <SignInSocialButton
-            title="Entrar com Apple"
-            svg={AppleSvg}
-            onPress={handleSignInWithApple}
-          />
+          {Platform.OS === "ios" && (
+            <SignInSocialButton
+              title="Entrar com Apple"
+              svg={AppleSvg}
+              onPress={handleSignInWithApple}
+            />
+          )}
         </FooterWrapper>
+        {isLoadding && (
+          <ActivityIndicator
+            style={{ marginTop: 18 }}
+            color={theme.colors.shape}
+          />
+        )}
       </Footer>
     </Container>
   );
